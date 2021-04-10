@@ -1,7 +1,7 @@
 {
   "name": "nodejs-ts-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API desenvolvida em curso com NodeJS, TypeScript e MongoDB.",
   "main": "src/server.ts",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
