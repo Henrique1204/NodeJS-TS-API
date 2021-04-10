@@ -12,9 +12,19 @@ export class App {
         });
     };
 
+    private database = (): void => {
+        mongoose.connect('mongodb://127.0.0.1/api_ts', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+            useCreateIndex: true
+        });
+    };
+
     constructor() {
         this.express = express();
         this.listen();
+        this.database();
     }
 
     public getApp = (): express.Application => this.express;
