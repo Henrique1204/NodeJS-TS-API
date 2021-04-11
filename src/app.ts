@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import rotaUsuario from './rotas/usuario.rota';
 
 export class App {
     private express: express.Application;
@@ -28,11 +29,16 @@ export class App {
         this.express.use(cors({ origin: true, credentials: true}));
     };
 
+    private rotas = (): void => {
+        this.express.use('/usuario', rotaUsuario);
+    };
+
     constructor() {
         this.express = express();
         this.listen();
         this.database();
         this.middlewares();
+        this.rotas();
     }
 
     public getApp = (): express.Application => this.express;
