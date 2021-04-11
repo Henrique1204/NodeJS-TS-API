@@ -1,4 +1,9 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
+import { UsuarioInterface } from "src/interfaces/usuario.interface";
+
+interface UsuarioModel extends UsuarioInterface, Document {
+    _id: string;
+}
 
 const UsuarioSchema = new Schema({
     nome: {
@@ -15,4 +20,4 @@ const UsuarioSchema = new Schema({
     }
 });
 
-export default model('Usuario', UsuarioSchema);
+export default model<UsuarioModel>('Usuario', UsuarioSchema);
