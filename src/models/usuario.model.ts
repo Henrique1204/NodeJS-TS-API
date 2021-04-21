@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 
 interface UsuarioModel extends UsuarioInterface, Document {
     _id: string;
+    compararSenhas(senha: string): Promise<Boolean>;
 }
 
 const UsuarioSchema = new Schema({
@@ -30,5 +31,10 @@ UsuarioSchema.pre<UsuarioModel>('save', function gerarAvatar() {
 
     this.avatar = `https://api.adorable.io/avatars/285/${randomId}.png`;
 });
+
+UsuarioSchema.methods
+.compararSenhas = function(this: UsuarioModel, senha: string): Promise<Boolean> {
+    return bcrypt.compare(senha, this.senha);
+}
 
 export default model<UsuarioModel>('Usuario', UsuarioSchema);

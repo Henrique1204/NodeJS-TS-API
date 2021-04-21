@@ -4,5 +4,6 @@ import { Request, Router } from "express";
 const rotaUsuario = Router();
 
 rotaUsuario.post('/cadastro', usuarioController.cadastrar);
+rotaUsuario.post('/login', usuarioController.autenticar);
 
 export default rotaUsuario;
