@@ -24,7 +24,10 @@ class UsuarioController {
         const isValid = await usuario.compararSenhas(senha);
         if (!isValid) return res.status(403).send({ mensagem: 'Senha inválida!' });
 
-        return res.status(200).send(usuario);
+        return res.status(200).send({
+            usuario,
+            token: usuario.gerarToken()
+        });
     };
 }
 
