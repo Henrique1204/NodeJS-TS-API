@@ -3,10 +3,8 @@ import { Request, Response } from 'express';
 
 class MensagemController {
     public async enviar(req: Request, res: Response): Promise<Response> {
-        const { texto } = req.body;
-
         const mensagem = await mensagemModel.create({
-            texto,
+            texto: req.body.texto,
             remetente: '',
             destinatario: req.params.id
         });
