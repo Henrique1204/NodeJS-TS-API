@@ -11,4 +11,11 @@ rotaMensagem.post(
     mensagemController.enviar
 );
 
+rotaMensagem.get(
+    '/:id',
+    authMiddleware.autorizarUsuarioPorParams,
+    authMiddleware.autorizarUsuarioPorToken,
+    mensagemController.listar
+);
+
 export default rotaMensagem;

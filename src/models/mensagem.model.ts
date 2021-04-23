@@ -1,4 +1,9 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
+import { MensagemInterface } from "src/interfaces/mensagem.interface";
+
+interface MensagemModel extends MensagemInterface, Document {
+    _id: string;
+}
 
 const MensagemSchema = new Schema({
     texto: {
@@ -21,4 +26,4 @@ const MensagemSchema = new Schema({
     }
 });
 
-export default model('Mensagem', MensagemSchema);
+export default model<MensagemModel>('Mensagem', MensagemSchema);
