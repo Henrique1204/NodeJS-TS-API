@@ -23,7 +23,13 @@ class MensagemController {
             ]
         }).sort('data_criacao');
 
-        return res.status(200).send(mensagens);
+        const mensagensChat = mensagens.map(({ texto, data_criacao, remetente }) => ({
+            texto,
+            data_criacao,
+            isRemetente: remetente == String(idUsuarioLogado)
+        }));
+
+        return res.status(200).send(mensagensChat);
     }
 }
 

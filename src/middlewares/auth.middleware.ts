@@ -10,7 +10,7 @@ class AuthMiddleware {
 
             if (!token) return res.status(401).send({ mensagem: 'Acesso restrito' });
     
-            const usuarioToken = jwt.verify(token.toString(), 'SECRET') as UsuarioInterface;
+            const usuarioToken = jwt.verify(String(token), 'SECRET') as UsuarioInterface;
             const usuario = await usuarioModel.findById(usuarioToken._id);
     
             if (!usuario) return res.status(400).send({ mensagem: 'Usuário não existe' });
