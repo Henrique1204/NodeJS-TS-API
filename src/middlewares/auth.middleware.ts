@@ -14,7 +14,8 @@ class AuthMiddleware {
             const usuario = await usuarioModel.findById(usuarioToken._id);
     
             if (!usuario) return res.status(400).send({ mensagem: 'Usuário não existe' });
-    
+            req.usuario = usuario;
+
             return next();
         } catch(e) {
             return res.status(401).send({ mensagem: 'Token inválido!' });

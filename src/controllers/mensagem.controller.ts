@@ -5,7 +5,7 @@ class MensagemController {
     public async enviar(req: Request, res: Response): Promise<Response> {
         const mensagem = await mensagemModel.create({
             texto: req.body.texto,
-            remetente: '',
+            remetente: req.usuario._id,
             destinatario: req.params.id
         });
 
