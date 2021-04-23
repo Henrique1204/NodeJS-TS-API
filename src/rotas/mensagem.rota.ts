@@ -6,6 +6,7 @@ const rotaMensagem = Router();
 
 rotaMensagem.post(
     '/:id',
+    authMiddleware.autorizarUsuarioPorParams,
     authMiddleware.autorizarUsuarioPorToken,
     mensagemController.enviar
 );
