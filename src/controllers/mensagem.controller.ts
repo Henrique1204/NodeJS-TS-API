@@ -2,7 +2,7 @@ import MensagemModel from '@models/mensagem.model';
 import { Request, Response } from 'express';
 
 class MensagemController {
-    public async enviar(req: Request, res: Response): Promise<Response> {
+    public enviar = async (req: Request, res: Response): Promise<Response> => {
         const mensagem = await MensagemModel.create({
             texto: req.body.texto,
             remetente: req.usuario._id,
@@ -10,9 +10,9 @@ class MensagemController {
         });
 
         return res.status(200).send(mensagem);
-    }
+    };
 
-    public async listar(req: Request, res: Response): Promise<Response> {
+    public listar = async (req: Request, res: Response): Promise<Response> => {
         const idUsuarioLogado = req.usuario._id;
         const idUsuarioChat = req.usuarioChat._id;
 
@@ -30,7 +30,7 @@ class MensagemController {
         }));
 
         return res.status(200).send(mensagensChat);
-    }
+    };
 }
 
 export default new MensagemController();

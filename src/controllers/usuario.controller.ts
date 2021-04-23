@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 class UsuarioController {
     public cadastrar = async (req: Request, res: Response): Promise<Response> => {
-        const { _id, nome, senha } = await usuarioModel.create(req.body);
+        const { _id, nome } = await usuarioModel.create(req.body);
 
         const resposta = {
             mensagem: 'Usuário cadastrado com sucessso',
@@ -27,6 +27,10 @@ class UsuarioController {
             usuario,
             token: usuario.gerarToken()
         });
+    };
+
+    public getById = (req: Request, res: Response): Response => {
+        return res.status(200).send(req.usuarioChat);
     };
 }
 
