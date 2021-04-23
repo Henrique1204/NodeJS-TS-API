@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { UsuarioInterface } from "src/interfaces/usuario.interface";
 
 class AuthMiddleware {
-    public async autorizarUsuarioPorToken(req: Request, res: Response, next: NextFunction) {
+    public async autorizarUsuarioPorToken(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
             const token = req.query.token || req.headers['x-access-token'];
 
