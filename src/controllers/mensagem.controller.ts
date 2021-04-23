@@ -21,7 +21,7 @@ class MensagemController {
                 { $and: [{ remetente: idUsuarioLogado }, { destinatario: idUsuarioChat }] },
                 { $and: [{ remetente: idUsuarioChat }, { destinatario: idUsuarioLogado }] }
             ]
-        });
+        }).sort('data_criacao');
 
         return res.status(200).send(mensagens);
     }

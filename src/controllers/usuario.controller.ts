@@ -8,8 +8,7 @@ class UsuarioController {
         const resposta = {
             mensagem: 'Usuário cadastrado com sucessso',
             _id,
-            nome,
-            senha
+            nome
         };
 
         return res.status(201).send(resposta);
