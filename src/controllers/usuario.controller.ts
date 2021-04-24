@@ -1,6 +1,7 @@
 import mensagemModel from "@models/mensagem.model";
 import usuarioModel from "@models/usuario.model";
 import { Request, Response } from "express";
+import mensagemService from "src/services/mensagem.service";
 
 class UsuarioController {
     public cadastrar = async (req: Request, res: Response): Promise<Response> => {
@@ -39,22 +40,13 @@ class UsuarioController {
 
         const usuarios = await usuarioModel.find({ _id: { $ne: idUsuarioLogado } });
 
-        const usuariosMensagem = await Promise.all(usuarios.map(({ _id, nome, avatar }) => (
-            mensagemModel.buscaChat(idUsuarioLogado, _id)
-            .sort('-data_criacao').limit(1).map((mensagem) => ({
-                _id,
-                nome,
-                avatar,
-                ultimaMensagem: mensagem[0]?.texto || null,
-                dataUltimaMensagem: mensagem[0]?.data_criacao || null
-            }))
+        const usuariosMensagem = await Promise.all(usuarios.map((usuario) => (
+            mensagemModel.buscaChat(idUsuarioLogado, usuario._id)
+            .sort('-data_criacao').limit(1)
+            .map((mensagens) => mensagemService.getMensagemUsuario(usuario, mensagens))
         )));
 
-        const mensagensOrdenadas = usuariosMensagem.sort((a, b) => {
-            return (a.dataUltimaMensagem ? 0 : 1) - (b.dataUltimaMensagem ? 0 : 1)
-                || -(a.dataUltimaMensagem > b.dataUltimaMensagem)
-                || +(a.dataUltimaMensagem < b.dataUltimaMensagem)
-        });
+        const mensagensOrdenadas = mensagemService.ordenarMensagens(usuariosMensagem);
 
         return res.status(200).send(mensagensOrdenadas);
     };
