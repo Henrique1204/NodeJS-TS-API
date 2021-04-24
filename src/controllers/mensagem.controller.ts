@@ -1,9 +1,9 @@
-import MensagemModel from '@models/mensagem.model';
+import mensagemModel from '@models/mensagem.model';
 import { Request, Response } from 'express';
 
 class MensagemController {
     public enviar = async (req: Request, res: Response): Promise<Response> => {
-        const mensagem = await MensagemModel.create({
+        const mensagem = await mensagemModel.create({
             texto: req.body.texto,
             remetente: req.usuario._id,
             destinatario: req.usuarioChat._id
@@ -16,7 +16,8 @@ class MensagemController {
         const idUsuarioLogado = req.usuario._id;
         const idUsuarioChat = req.usuarioChat._id;
 
-        const mensagens = await MensagemModel.buscaChat(idUsuarioLogado, idUsuarioChat).sort('data_criacao');
+        const mensagens = await mensagemModel.buscaChat(idUsuarioLogado, idUsuarioChat)
+        .sort('data_criacao');
 
         const mensagensChat = mensagens.map(({ texto, data_criacao, remetente }) => ({
             texto,
