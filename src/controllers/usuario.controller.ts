@@ -50,7 +50,13 @@ class UsuarioController {
             }))
         )));
 
-        return res.status(200).send(usuariosMensagem);
+        const mensagensOrdenadas = usuariosMensagem.sort((a, b) => {
+            return (a.dataUltimaMensagem ? 0 : 1) - (b.dataUltimaMensagem ? 0 : 1)
+                || -(a.dataUltimaMensagem > b.dataUltimaMensagem)
+                || +(a.dataUltimaMensagem < b.dataUltimaMensagem)
+        });
+
+        return res.status(200).send(mensagensOrdenadas);
     };
 }
 
