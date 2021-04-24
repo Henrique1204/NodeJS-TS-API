@@ -32,6 +32,14 @@ class UsuarioController {
     public getById = (req: Request, res: Response): Response => {
         return res.status(200).send(req.usuarioChat);
     };
+
+    public listar = async (req: Request, res: Response): Promise<Response> => {
+        const idUsuarioLogado = req.usuario._id;
+
+        const usuarios = await usuarioModel.find({ _id: { $ne: idUsuarioLogado } });
+
+        return res.status(200).send(usuarios);
+    };
 }
 
 export default new UsuarioController();

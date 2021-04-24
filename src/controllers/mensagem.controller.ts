@@ -16,12 +16,7 @@ class MensagemController {
         const idUsuarioLogado = req.usuario._id;
         const idUsuarioChat = req.usuarioChat._id;
 
-        const mensagens = await MensagemModel.find({
-            $or: [
-                { $and: [{ remetente: idUsuarioLogado }, { destinatario: idUsuarioChat }] },
-                { $and: [{ remetente: idUsuarioChat }, { destinatario: idUsuarioLogado }] }
-            ]
-        }).sort('data_criacao');
+        const mensagens = await MensagemModel.buscaChat(idUsuarioLogado, idUsuarioChat).sort('data_criacao');
 
         const mensagensChat = mensagens.map(({ texto, data_criacao, remetente }) => ({
             texto,

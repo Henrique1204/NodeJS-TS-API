@@ -14,4 +14,10 @@ rotaUsuario.get(
     usuarioController.getById
 );
 
+rotaUsuario.get(
+    '/',
+    authMiddleware.autorizarUsuarioPorToken,
+    usuarioController.listar
+);
+
 export default rotaUsuario;
